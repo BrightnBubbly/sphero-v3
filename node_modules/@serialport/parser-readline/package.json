@@ -1,0 +1,20 @@
+{
+  "name": "@serialport/parser-readline",
+  "main": "readline.js",
+  "version": "2.0.2",
+  "dependencies": {
+    "@serialport/parser-delimiter": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-serialport/node-serialport.git"
+  },
+  "gitHead": "d59fe44fcc1ba52a51805375481ef339f3f83de4"
+}

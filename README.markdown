@@ -1,3 +1,25 @@
+This repo is forked from Sphero's sphero.js repo and has a few edits to allow the code to run without errors.
+
+The most notable changes are that, in the package.json file, the xpc-connection source had to be set to reference
+a specific pull request from sandeepmistry's node-xpc-connections repo:
+```
+"xpc-connection": "sandeepmistry/node-xpc-connection#26/head"
+```
+
+Furthermore, in the package.json file, a resolutions section was required, in addition to the normal dependencies section:
+```
+"resolutions": {
+"xpc-connection": "sandeepmistry/node-xpc-connection#26/head"
+}
+```
+
+There were also errors that the code was now based on functional programing, rather than component-based programing. An edits
+had to be made in the serialport.js file within the sphero node module, so that the port declaration no longer created
+a new instance of serialport, but, rather, made a new call to the serialport creation function.
+
+As an aside, it was also noted that the lib directory was utilized in the sphero node module's index.js file, rather than the dist directory.
+
+
 # Sphero.js
 
 The official Orbotix JavaScript SDK module to programmatically control Sphero robots.
