@@ -39,6 +39,43 @@ async function battery() {
   }
 }
 
+// once I figure out the delays, each letter will get its own "create" function that will be called in a switch statement
+// (which has a case for each letter) within a "spell" function that has the user input something for the bot to spell
+// and splits the user input string into an array that gets looped through to spell each letter contained within it
+
+// async function spell(string) {
+//     var rl = require('readline-sync');
+//     var response = '';
+//
+//     response = rl.question("What would you like to write?");
+//
+//     process.stdin.resume();
+//     process.stdin.setEncoding('utf8');
+//
+//     var characters = response.split('')
+//
+//     characters.forEach((character) => {
+//       switch (character) {
+//         case a:
+//           console.log("a")
+//           roll(20, 45, 4);
+//           await delay(4);
+//           roll(20, 135, 4);
+//           await delay(4);
+//           roll(315, 20, 2);
+//           await delay(2);
+//           roll(270, 20, 1);
+//           await delay(1);
+//           roll(90, 20, 1);
+//           await delay(1);
+//           roll(135, 20, 1);
+//           break;
+//         default:
+//           console.log('sorry, I don\'t understand')
+//       }
+//     })
+// }
+
 async function handle(ch, key) {
   try {
     const stop = orb.roll.bind(orb, 0, 0);
@@ -89,40 +126,22 @@ async function handle(ch, key) {
 
     if (key.name === 'a') {
       console.log("a")
+      orb.color(0xff0000);
       roll(20, 45, 4);
       await delay(4);
       roll(20, 135, 4);
       await delay(4);
-      // roll(315, 20, 2);
-      // roll(270, 20, 1);
-      // roll(90, 20, 1);
-      // roll(135, 20, 1);
-      orb.color(0xff0000);
+      roll(315, 20, 2);
+      await delay(2);
+      roll(270, 20, 1);
+      await delay(1);
+      roll(90, 20, 1);
+      await delay(1);
+      roll(135, 20, 1);
     }
 
-    // function to have user input something for the sphero to write
     // if (key.name === 's') {
-    //   var rl = require('readline-sync');
-    //   var response = '';
-    //
-    //   response = rl.question("What would you like to write?");
-    //
-    //   process.stdin.resume();
-    //   process.stdin.setEncoding('utf8');
-    //
-    //   var characters = response.split('')
-    //
-    //   characters.forEach((character) => {
-    //     if (character === 'a') {
-    //       console.log("a")
-    //       roll(45, 100, 10);
-    //       roll(135, 100, 10);
-    //       roll(315, 100, 2);
-    //       roll(270, 100, 1);
-    //       roll(90, 100, 1);
-    //       roll(135, 100, 1);
-    //     }
-    //   )
+    // spell ()
     // }
 
   } catch (error) {
