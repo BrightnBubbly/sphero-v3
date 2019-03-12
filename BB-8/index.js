@@ -12,6 +12,7 @@ const orb = sphero("/dev/tty.Sphero-ORG-AMP-SPP"); // change BLE address accordi
 
 async function init() {
   try {
+    process.stdin.resume();
     await orb.connect(listen);
 
     // print system/battery state
@@ -27,9 +28,9 @@ async function battery() {
 
     const stats = {
       system: state.batteryState, // high-level state of the power system
-      voltage: state.batteryVoltage, // current battery voltage, scaled in 100ths of a volt
-      charges: state.chargeCount, // number of total charges to date
-      lastCharged: (state.secondsSinceCharge / 60) + ' ago'// minues since last charge
+      voltage: state.batteryVoltage + ' * 100 volts', // current battery voltage, scaled in 100ths of a volt
+      charges: state.chargeCount + ' lifetime charges', // number of total charges to date
+      lastCharged: (state.secondsSinceCharge / 60) + ' min ago'// minues since last charge
     };
 
     return stats;
@@ -46,6 +47,7 @@ async function handle(ch, key) {
     if (key.ctrl && key.name === "c") {
       // TODO on start get pid and store it to a variable and kill the process
       console.log(process.pid)
+
       process.stdin.pause();
       process.exit(0);
     }
@@ -70,7 +72,7 @@ async function handle(ch, key) {
     }
 
     if (key.name === "left") {
-      roll(270, 100, 1);
+      roll(270);
       orb.color(0xf4de98);
       console.log("LEFT");
     }
@@ -85,19 +87,44 @@ async function handle(ch, key) {
       stop();
     }
 
-    if (key.name === 't') {
-      console.log("What would you like to write?")
-    }
-
     if (key.name === 'a') {
       console.log("a")
-      roll(45, 100, 10);
-      roll(135, 100, 10);
-      roll(315, 100, 2);
-      roll(270, 100, 1);
-      roll(90, 100, 1);
-      roll(135, 100, 1);
+      roll(20, 45, 4);
+      console.log("  sensor:", data.pitchAngle.sensor);
+      console.log("    range:", data.pitchAngle.range);
+      console.log("    units:", data.pitchAngle.units);
+      console.log("    value:", data.pitchAngle.value[0]);
+      // roll(135, 20, 4);
+      // roll(315, 20, 2);
+      // roll(270, 20, 1);
+      // roll(90, 20, 1);
+      // roll(135, 20, 1);
+      orb.color(0xff0000);
     }
+
+    // if (key.name === 's') {
+    //   var rl = require('readline-sync');
+    //   var response = '';
+    //
+    //   response = rl.question("What would you like to write?");
+    //
+    //   process.stdin.resume();
+    //   process.stdin.setEncoding('utf8');
+    //
+    //   var characters = response.split('')
+    //
+    //   characters.forEach((character) => {
+    //     if (character === 'a') {
+    //       console.log("a")
+    //       roll(45, 100, 10);
+    //       roll(135, 100, 10);
+    //       roll(315, 100, 2);
+    //       roll(270, 100, 1);
+    //       roll(90, 100, 1);
+    //       roll(135, 100, 1);
+    //     }
+    //   )
+    // }
 
   } catch (error) {
     console.log("HANDLE ERROR", error);
